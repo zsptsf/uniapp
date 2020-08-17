@@ -84,12 +84,16 @@
 							console.log(error);
 						  }
 						})
-			            }
+						that.hasUserInfo= true,
+						that.userInfo = userInfo
+			            },
+						fail: function(error) {
+							//用户拒绝授权
+							uni.reLaunch({url: '/pages/index/index'});
+						}
 			          })
 			        }
 			      })
-			      this.hasUserInfo= true,
-				  this.userInfo = userInfo
 			    }else{//第一次授权登录
 					uni.login({
 						success: function(login_res) {
@@ -121,11 +125,15 @@
 							  }
 							})
 							that.userInfo = info_res.userInfo
+							that.hasUserInfo= true
+						},
+						fail: function(error) {
+							//用户拒绝授权
+							uni.reLaunch({url: '/pages/index/index'});
 						}
 					  })
 					}
 				  })
-				  this.hasUserInfo= true
 				}
 			}
 		}
